@@ -1,0 +1,20 @@
+{
+    "baseUrl": "https://vinothqaacademy.com/demo-site/",
+    "registrationTitle": "Register For Demo",
+    "firstname": "Niraj",
+    "lastname": "Patel",
+    "gender": ["Male", "Female", "Other"],
+    "course": ["Selenium WebDriver", "Java", "TestNG", "DevOps", "Functional Testing", "Others"],
+    "Address": "1- Homeland Appartment",
+    "city":"Gandhinagar",
+    "state":"Gujarat",
+    "postalcode":"38242010",
+    "country":"India",
+    "email":"test@test.com",
+    "dateofdemo":"11/14/2024",
+    "hour": "10",
+    "minute": "10",
+    "mobile": "qwertyuiop",
+    "query": "This is first playwright automation demo.",
+    "verificationCode": "33"
+}
