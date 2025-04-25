@@ -1,3 +1,5 @@
+const{expect} = require('@playwright/test');
+ 
  class SeleniumCoreUtil {
  
  /**
@@ -89,8 +91,96 @@ async selectDropdownOption(page, selector, { value, label, index }) {
     await page.waitForSelector(selector, { state: 'visible', timeout });
 }
   
+async dragAndDrop(page, sourceLocator, targetLocator)  {
+  try {
+    const source = await page.locator(sourceLocator);
+    const target = await page.locator(targetLocator);
+    await expect.soft(page.locator(sourceLocator)).toBeVisible({timeout: 5000})
+    await expect.soft(page.locator(targetLocator)).toBeVisible({timeout: 5000})
+    await source.dragTo(target);
 
-}
+    console.log(`✅ Dragged element from ${sourceLocator} to ${targetLocator} using dragTo()`);
+  } catch (err) {
+    console.error('❌ Drag and drop using dragTo() failed:', err);
+    throw err;
+  }
+};
+
+
+/**
+     * Waits for a new window (popup or tab) to open after a specific action
+     * @param {Page} page - The current Playwright page
+     * @param {Function} triggerAction - Function that triggers the new window
+     * @returns {Promise<Page>} - The newly opened page
+*/
+async waitForNewWindow(page, triggerAction) {
+    const [newPage] = await Promise.all([
+        page.context().waitForEvent('page'),
+        triggerAction(), // Call the function that triggers the new window
+    ]);
+    await newPage.waitForLoadState();
+    return newPage;
+  }
+  
+  /**
+     * Handles a new window: switches, performs callback, and optionally closes
+     * @param {Page} page - The current page
+     * @param {Function} triggerAction - Function that opens the new window
+     * @param {Function} callback - Actions to perform on the new page
+     * @param {boolean} closeAfter - Whether to close the new page after action
+     */
+  async handleNewWindow(page, triggerAction, callback, closeafter = true) { 
+    const newPage = await this.waitForNewWindow(page, triggerAction);
+    await callback(newPage); // Call the callback function with the new page  
+    if (closeafter) {
+      await newPage.close(); // Close the new page if closeafter is true
+    }
+  }
+
+  async getAllOpenPages(page) {
+    const pages = await this.page.context().pages();
+    return pages.filter(page => page.url() !== 'about:blank'); // Filter out blank pages
+  }
+
+  async swithToPageByTitle(page, expectedTitle) {
+    const pages = await this.getAllOpenPages(page);
+    for (const newPage of pages) {
+      await newPage.waitForLoadState();
+        const title = await newPage.title();
+        if (title === expectedTitle) {
+            await newPage.bringToFront(); // Bring the page to the front
+            return newPage; // Return the page with the expected title
+        }
+    }
+    throw new Error(`No page found with title: ${expectedTitle}`);
+  }
+
+ async swithcToPageByUrl(page, expectedUrl) { 
+    const pages = await this.getAllOpenPages(page);
+    for (const newPage of pages) {
+        await newPage.waitForLoadState();
+        const url = await newPage.url();
+        if (url === expectedUrl) {
+            await newPage.bringToFront(); // Bring the page to the front
+            return newPage; // Return the page with the expected URL
+        }
+    }
+    throw new Error(`No page found with URL: ${expectedUrl}`);
+ }
+
+ async closeAllOtherTabs(page){
+    const pages = await this.getAllOpenPages(page);
+    for (const allPage of pages) {
+        if (allPage !== this.page) {
+            await allPage.close(); // Close the all page if it's not the current one
+        }
+    }
+    console.log('Closed all other tabs except the current one.');
+  }
+  
+ }
+
+
 
  
 // Exporting the class as a module

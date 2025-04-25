@@ -1,0 +1,6 @@
+{
+    "baseUrl": "https://vinothqaacademy.com/alert-and-popup/",
+    "alertText": "I am an alert box!",
+    "confirmText": "Confirm pop up with OK and Cancel button",
+    "promptText": "Do you like Automation ?"
+}

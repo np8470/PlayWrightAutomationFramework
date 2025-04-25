@@ -1,0 +1,10 @@
+{
+    "baseUrl": "https://vinothqaacademy.com/iframe/",
+    "firstFrameUrl": "https://vinothqaacademy.com/webtable/",
+    "firstFrameName": "employeetable",
+    "firstFrameHeading": "Project Details",
+    "firstFrameTitle": "Demo Site - WebTable - Vinoth Q.A Academy",
+    "secondFrameName": "popuppage",
+    "thirdFrameName":"registeruser",
+    "firstName": "Niraj"
+}
