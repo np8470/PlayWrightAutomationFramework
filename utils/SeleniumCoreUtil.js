@@ -177,7 +177,37 @@ async waitForNewWindow(page, triggerAction) {
     }
     console.log('Closed all other tabs except the current one.');
   }
+
+  async setText(page, selector, value, description = '') {
+      this._log('⏩ Typing in', selector, description, ` with value "${value}"`);
+      const locator = page.locator(selector);
+      await locator.waitFor({ state: 'visible', timeout: 5000 });
+      await locator.fill('');
+      await locator.type(value);
+  }
+
+  async clickElement(page, selector, description = '') {
+      this._log('🖱️ Clicking on', selector, description);
+      const locator = page.locator(selector);
+      await locator.waitFor({ state: 'visible', timeout: 5000 });
+      await locator.click();
+  }
+
+  async getText(page, selector) {
+      const locator = page.locator(selector);
+      await locator.waitFor({ state: 'visible', timeout: 5000 });
+      return await locator.textContent();
+  }
+
+  async isVisible(page, selector) {
+      return await page.locator(selector).isVisible();
+  }
   
+  // Helper for consistent logging
+  _log(action, selector, description = '', extra = '') {
+       console.log(`${action} selector "${selector}"${description ? ` (${description})` : ''}${extra}`);
+  }
+
  }
 
 

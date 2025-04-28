@@ -1,0 +1,40 @@
+{
+"users": [
+    {
+        "id": 1,
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "title": "Swag Labs",
+        "inventoryUrl": "https://www.saucedemo.com/inventory.html"
+    },
+    {
+        "id": 2,
+        "username": "problem_user",
+        "password": "secret_sauce",
+        "title": "Swag Labs",
+        "inventoryUrl": "https://www.saucedemo.com/inventory.html"
+    },
+    {
+        "id": 3,
+        "username": "performance_glitch_user",
+        "password": "secret_sauce",
+        "title": "Swag Labs",
+        "inventoryUrl": "https://www.saucedemo.com/inventory.html"
+    },
+    {
+        "id": 4,
+        "username": "error_user",
+        "password": "secret_sauce",
+        "title": "Swag Labs",
+        "inventoryUrl": "https://www.saucedemo.com/inventory.html"
+    },
+    {
+        "id": 5,
+        "username": "visual_user",
+        "password": "secret_sauce",
+        "title": "Swag Labs",
+        "inventoryUrl": "https://www.saucedemo.com/inventory.html"
+    }
+],
+"baseUrl": "https://www.saucedemo.com/"
+}
